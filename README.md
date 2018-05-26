@@ -38,7 +38,8 @@ The source code (Ansible playbooks) can be found at **[ByteDocked Github Repo](h
  '''
  - Choose instance type. t2.micro is used for this setup but can be overridden with --instance_type argument
  - Choose region. us-east-2 is assumed but you can pass another region with --region
- - tag your instance with --tag (default is bytecubed-test)
+ - tag your instance with --tag (default is bytecubed-linux-test)
+ - Name the security group you like to use or override by specifying --group to --extra-vars args as shown below.  Default is bytecubed-sg
  - Choose an AMI for the Linux instance by passing --ami (default is Amazon Linux in us-east-2, ami-922914f7)
  - Make sure AWS credentials for CLI access is setup.  Set the environment variable AWS_PROFILE to AWS profile you chose.  The ~/.aws/credentials file defines these profiles and should look like
 ```
@@ -61,10 +62,10 @@ cd bytedocked
 ansible-playbook site.yml
 
 If you want to override parameters, the command would be:
-ansible-playbook site.yml --extra-vars "keypair=bytecubed-kp "
+ansible-playbook site.yml --extra-vars "keypair=bytecubed-kp group=my-sg"
 ```
 
-This should take about 5 minutes to complete the setup.  Finally it prints the http and https URLs.  Paste them in your browser or use curl commands as shown below (replace the ec2 DNS name):
+This should take about 5 minutes to complete the setup.  Find the DNS name of the instance the playbooks created and access it.  Paste them in your browser or use curl commands as shown below (replace the ec2 DNS name):
 
 ```
 curl -I http://ec2-18-191-120-50.us-east-2.compute.amazonaws.com/
