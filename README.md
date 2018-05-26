@@ -27,14 +27,20 @@ The source code (Ansible playbooks) can be found at **[ByteDocked Github Repo](h
 
 ## Assumptions and setup
 
+
  - Create or choose AWS keypair to use for the instance. The example
    assumes **bytecubed-test-keypair**.  You can override the keypair by
    passing --keypair argument (details below)
-   - Choose instance type. t2.micro is used for this setup but can be overridden with --instance_type argument
-   - Choose region. us-east-2 is assumed but you can pass another region with --region
-   - tag your instance with --tag (default is bytecubed-test)
-   - Choose an AMI for the Linux instance by passing --ami (default is Amazon Linux in us-east-2, ami-922914f7)
-   - Make sure AWS credentials for CLI access is setup.  Set the environment variable AWS_PROFILE to AWS profile you chose.  The ~/.aws/credentials file defines these profiles and should look like
+ - Run ssh-agent on local laptop and add the AWS keypair you're going to use.  For instance, on a Mac OX
+ '''
+ ssh-agent
+ ssh-add ~/.ssh/bytecubed-test-keypair
+ '''
+ - Choose instance type. t2.micro is used for this setup but can be overridden with --instance_type argument
+ - Choose region. us-east-2 is assumed but you can pass another region with --region
+ - tag your instance with --tag (default is bytecubed-test)
+ - Choose an AMI for the Linux instance by passing --ami (default is Amazon Linux in us-east-2, ami-922914f7)
+ - Make sure AWS credentials for CLI access is setup.  Set the environment variable AWS_PROFILE to AWS profile you chose.  The ~/.aws/credentials file defines these profiles and should look like
 
 [bytecubed]
 region = us-east-2
@@ -53,6 +59,9 @@ git clone https://github.com/madhujoshi/bytedocked
 ```
 cd bytedocked
 ansible-playbook site.yml
+
+If you want to override parameters, the command would be:
+ansible-playbook site.yml --extra-vars "keypair=bytecubed-kp "
 ```
 
 This should take about 5 minutes to complete the setup.  Finally it prints the http and https URLs.  Paste them in your browser or use curl commands as shown below (replace the ec2 DNS name):

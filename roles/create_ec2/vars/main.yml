@@ -2,13 +2,10 @@
 # vars file for create_ec2
 aws_access_key: ""
 aws_secret_key: ""
-#keypair: "bytecubed-test-keypair"
-keypair: "zspace-rocket-us-east-2"
+keypair: "bytecubed-test-keypair"
 instance_type: "t2.micro"
 ami: "ami-922914f7"
-#group: "bytecubed-sg"
-group: "default"
+group: "bytecubed-sg"
 region: "us-east-2"
 volume_size: 8
-#name: "bytecubed-linux-test"
-tag: "mj-linux-test"
+tag: "bytecubed-linux-test"
