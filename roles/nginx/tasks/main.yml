@@ -1,5 +1,5 @@
 ---
-- name: install nginx container
+- name: Start nginx container using image built by docker role
   docker_container:
     name: mynginx
     image: mynginx:latest
@@ -24,6 +24,7 @@
     msg: "The web page is not up or I couldn't find the right content: BYTECUBED is missing on page."
   when: "'BYTECUBED' not in webpage.content"
 
+#
 # TODO: Looks like the firewall ports are automatically opened by host
 # sudo iptables -L
 # Chain INPUT (policy ACCEPT)
