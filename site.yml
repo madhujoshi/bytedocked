@@ -13,5 +13,6 @@
   become: True
 
   roles:
+    - iptables
     - docker
     - nginx
