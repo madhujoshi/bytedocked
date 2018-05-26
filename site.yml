@@ -1,0 +1,17 @@
+---
+- name: Launch an Amazon EC2 instance from localhost
+  hosts: localhost
+  connection: local
+  gather_facts: False
+
+  roles:
+    - create_ec2
+
+
+- name: Setup hosts
+  hosts: launched
+  become: True
+
+  roles:
+    - docker
+    - nginx

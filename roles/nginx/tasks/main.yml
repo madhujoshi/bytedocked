@@ -1,0 +1,53 @@
+---
+- name: install nginx container
+  docker_container:
+    name: mynginx
+    image: mynginx:latest
+    state: started
+    exposed_ports:
+        - 80
+        - 443
+    published_ports:
+        - 80:80
+        - 443:443
+
+
+- name: Test if web page is up and we get a pattern
+  uri:
+        url: https://{{ ansible_hostname }}
+        return_content: yes
+        validate_certs: False
+  register: webpage
+
+- name: Fail if BYTECUBED is not in the page content
+  fail:
+    msg: "The web page is not up or I couldn't find the right content: BYTECUBED is missing on page."
+  when: "'BYTECUBED' not in webpage.content"
+
+# TODO: Looks like the firewall ports are automatically opened by host
+# sudo iptables -L
+# Chain INPUT (policy ACCEPT)
+# target     prot opt source               destination
+#
+# Chain FORWARD (policy DROP)
+# target     prot opt source               destination
+# DOCKER-USER  all  --  anywhere             anywhere
+# DOCKER-ISOLATION  all  --  anywhere             anywhere
+# ACCEPT     all  --  anywhere             anywhere             ctstate RELATED,ESTABLISHED
+# DOCKER     all  --  anywhere             anywhere
+# ACCEPT     all  --  anywhere             anywhere
+# ACCEPT     all  --  anywhere             anywhere
+#
+# Chain OUTPUT (policy ACCEPT)
+# target     prot opt source               destination
+#
+# Chain DOCKER (1 references)
+# target     prot opt source               destination
+# ACCEPT     tcp  --  anywhere             ip-172-17-0-2.us-east-2.compute.internal  tcp dpt:https
+# ACCEPT     tcp  --  anywhere             ip-172-17-0-2.us-east-2.compute.internal  tcp dpt:http
+#
+# Chain DOCKER-ISOLATION (1 references)
+# target     prot opt source               destination
+# RETURN     all  --  anywhere             anywhere
+#
+# Chain DOCKER-USER (1 references)

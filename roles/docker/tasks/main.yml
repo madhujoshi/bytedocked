@@ -1,0 +1,36 @@
+---
+# tasks file for docker
+- name: Install docker CE
+  package:
+      name: docker
+      state: latest
+
+- name: Install docker-py
+  pip:
+    name: docker-py
+  sudo: True
+
+- name: Start docker service
+  service:
+      name: docker
+      state: started
+
+- name: Add user to docker groupnam
+  user:
+      name: ec2-user
+      groups: docker
+      append: True
+
+- name: Create docker build directory
+  file: path=/tmp/dbuild state=directory
+
+- name: Copy Dockerfile file
+  copy: src=files/Dockerfile
+        dest=/tmp/dbuild/Dockerfile
+
+- name: Generate the nginx configuration file
+  copy: src=files/nginx.conf
+        dest=/tmp/dbuild/nginx.conf
+
+- name: build the docker docker_container
+  command: docker build -t mynginx:latest /tmp/dbuild
