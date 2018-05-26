@@ -61,7 +61,9 @@ git clone https://github.com/madhujoshi/bytedocked
 cd bytedocked
 ansible-playbook site.yml
 
+```
 If you want to override parameters, the command would be:
+```
 ansible-playbook site.yml --extra-vars "keypair=bytecubed-kp group=my-sg"
 ```
 
