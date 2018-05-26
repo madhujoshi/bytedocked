@@ -1,5 +1,5 @@
 # Installation Instructions
-Follow these steps to setup the ByteCubed DevOps Challenge node.  The instructions are designed to meet these requirements.
+Follow these steps to setup the ByteCubed DevOps Challenge.  The instructions are designed to meet these requirements.
 
  - Use a configuration management tool of your choice (i.e. Ansible,
    Chef, Puppet, etc.) to configure a Linux server as a docker host.
