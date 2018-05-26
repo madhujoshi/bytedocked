@@ -41,12 +41,12 @@ The source code (Ansible playbooks) can be found at **[ByteDocked Github Repo](h
  - tag your instance with --tag (default is bytecubed-test)
  - Choose an AMI for the Linux instance by passing --ami (default is Amazon Linux in us-east-2, ami-922914f7)
  - Make sure AWS credentials for CLI access is setup.  Set the environment variable AWS_PROFILE to AWS profile you chose.  The ~/.aws/credentials file defines these profiles and should look like
-
+```
 [bytecubed]
 region = us-east-2
 aws_access_key_id  = XXXXXXXXXXXXXXXXXX
 aws_secret_access_key = YYYYYYYYYYYYYYY
-
+```
 So, set the environment variable like:
 
 export AWS_PROFILE=bytecubed
